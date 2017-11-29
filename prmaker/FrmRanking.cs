@@ -112,6 +112,7 @@ namespace prmaker
 
                 //cierro la connexion
                 databaseConnection.Close();
+                this.Close();
             }
             catch(Exception ex)
             {
@@ -148,6 +149,41 @@ namespace prmaker
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnJugadores_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            FrmPlayers frmJugadores = new FrmPlayers(idRanking);
+
+            frmJugadores.ShowDialog();
+
+            this.Show();
+        }
+
+        private void btnPersonajes_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmCharacters frmChars = new FrmCharacters();
+            frmChars.ShowDialog();
+            this.Show();
+        }
+
+        private void btnTorneo_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmTourneys frmTour = new FrmTourneys();
+            frmTour.ShowDialog();
+            this.Show();
+        }
+
+        private void btnPr_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmPowerRanking frmPr = new FrmPowerRanking();
+            frmPr.ShowDialog();
+            this.Show();
         }
     }
 }

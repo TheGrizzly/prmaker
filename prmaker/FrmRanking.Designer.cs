@@ -103,6 +103,7 @@
             this.btnJugadores.TabIndex = 2;
             this.btnJugadores.Text = "Jugadores";
             this.btnJugadores.UseVisualStyleBackColor = true;
+            this.btnJugadores.Click += new System.EventHandler(this.btnJugadores_Click);
             // 
             // lblTextoNum
             // 
@@ -130,6 +131,7 @@
             this.btnPersonajes.TabIndex = 5;
             this.btnPersonajes.Text = "Personajes";
             this.btnPersonajes.UseVisualStyleBackColor = true;
+            this.btnPersonajes.Click += new System.EventHandler(this.btnPersonajes_Click);
             // 
             // btnTorneo
             // 
@@ -139,6 +141,7 @@
             this.btnTorneo.TabIndex = 6;
             this.btnTorneo.Text = "Torneos";
             this.btnTorneo.UseVisualStyleBackColor = true;
+            this.btnTorneo.Click += new System.EventHandler(this.btnTorneo_Click);
             // 
             // btnPr
             // 
@@ -148,6 +151,7 @@
             this.btnPr.TabIndex = 7;
             this.btnPr.Text = "Power Ranking";
             this.btnPr.UseVisualStyleBackColor = true;
+            this.btnPr.Click += new System.EventHandler(this.btnPr_Click);
             // 
             // btnSalir
             // 

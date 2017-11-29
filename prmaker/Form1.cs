@@ -87,7 +87,11 @@ namespace prmaker
                 }
             }
 
-            if (repetido)
+            if(RankingName == "")
+            {
+                MessageBox.Show("Ingrese un valor");
+            }
+            else if (repetido)
             {
                 MessageBox.Show("Ya existe un ranking con ese nombre, eliga otro nombre");
             }else if(RankingName.Length >30)

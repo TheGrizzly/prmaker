@@ -14,3 +14,17 @@ C:\Users\pc\Desktop\Elo Calculator\prmaker\prmaker\obj\Debug\prmaker.FrmRanking.
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\bin\Debug\prmaker.exe.config
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.exe
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.pdb
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\bin\Debug\prmaker.exe
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\bin\Debug\prmaker.pdb
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\bin\Debug\MySql.Data.dll
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\bin\Debug\MySql.Data.xml
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.csprojResolveAssemblyReference.cache
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmMenu.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmAddPlayer.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmElimPlayer.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmPlayers.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmPlayerStat.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmRanking.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.Properties.Resources.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.csproj.GenerateResource.Cache
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmCharacters.resources

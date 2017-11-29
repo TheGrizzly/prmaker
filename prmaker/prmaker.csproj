@@ -57,16 +57,73 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAddPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddPlayer.Designer.cs">
+      <DependentUpon>FrmAddPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCharacters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCharacters.Designer.cs">
+      <DependentUpon>FrmCharacters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmElimPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmElimPlayer.Designer.cs">
+      <DependentUpon>FrmElimPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPlayers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPlayers.Designer.cs">
+      <DependentUpon>FrmPlayers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPlayerStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPlayerStat.Designer.cs">
+      <DependentUpon>FrmPlayerStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPowerRanking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPowerRanking.Designer.cs">
+      <DependentUpon>FrmPowerRanking.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRanking.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmRanking.Designer.cs">
       <DependentUpon>FrmRanking.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmTourneys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTourneys.Designer.cs">
+      <DependentUpon>FrmTourneys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddPlayer.resx">
+      <DependentUpon>FrmAddPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCharacters.resx">
+      <DependentUpon>FrmCharacters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmElimPlayer.resx">
+      <DependentUpon>FrmElimPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPlayers.resx">
+      <DependentUpon>FrmPlayers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPlayerStat.resx">
+      <DependentUpon>FrmPlayerStat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRanking.resx">
       <DependentUpon>FrmRanking.cs</DependentUpon>
