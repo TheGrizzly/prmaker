@@ -28,3 +28,5 @@ C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmRanking.r
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.Properties.Resources.resources
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.csproj.GenerateResource.Cache
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmCharacters.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmEditPlayer.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmPowerRanking.resources

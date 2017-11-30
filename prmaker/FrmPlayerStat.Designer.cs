@@ -225,6 +225,9 @@
             // lbSetScore
             // 
             this.lbSetScore.FormattingEnabled = true;
+            this.lbSetScore.Items.AddRange(new object[] {
+            "Set Score:",
+            ""});
             this.lbSetScore.Location = new System.Drawing.Point(163, 55);
             this.lbSetScore.Name = "lbSetScore";
             this.lbSetScore.Size = new System.Drawing.Size(297, 173);

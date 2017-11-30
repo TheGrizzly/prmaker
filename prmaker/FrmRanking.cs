@@ -173,7 +173,7 @@ namespace prmaker
         private void btnTorneo_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FrmTourneys frmTour = new FrmTourneys();
+            FrmTourneys frmTour = new FrmTourneys(idRanking);
             frmTour.ShowDialog();
             this.Show();
         }
@@ -181,7 +181,7 @@ namespace prmaker
         private void btnPr_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FrmPowerRanking frmPr = new FrmPowerRanking();
+            FrmPowerRanking frmPr = new FrmPowerRanking(idRanking,SelectedRanking);
             frmPr.ShowDialog();
             this.Show();
         }

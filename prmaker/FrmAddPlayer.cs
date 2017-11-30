@@ -157,6 +157,7 @@ namespace prmaker
                     if (txtTag.Text == AllPlayerNames[i])
                     {
                         btnNew.Enabled = false;
+                        break;
                     }
                     else
                     {

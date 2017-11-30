@@ -20,7 +20,6 @@ namespace prmaker
         }
 
         //variables globales
-        int idRankingSelected;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
 
         private void getChars()
@@ -45,7 +44,8 @@ namespace prmaker
                 {
                     while (reader.Read())
                     {
-                        cboChars.Items.Add(reader.GetString(0));
+                        if(reader.GetString(0)!="Sin Main")
+                            cboChars.Items.Add(reader.GetString(0));
                     }
                     // se cierra la conexion con la base de datos
                     databaseConnection.Close();
@@ -193,6 +193,8 @@ namespace prmaker
                     //cierro la connexion
                     databaseConnection.Close();
                     getChars();
+                    btnEditar.Enabled = false;
+                    btnElim.Enabled = false;
                 }
                 catch (Exception ex)
                 {
