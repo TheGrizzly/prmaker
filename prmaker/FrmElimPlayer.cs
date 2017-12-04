@@ -53,6 +53,11 @@ namespace prmaker
             {
                 MessageBox.Show(ex.Message);
             }
+
+            if (cboPlayer.Items.Count == 0)
+            {
+                btnElim.Enabled = false;
+            }
         }
 
         public FrmElimPlayer(int idrank)
@@ -95,6 +100,7 @@ namespace prmaker
                 databaseConnection.Close();
 
                 getPlayers();
+                btnElim.Enabled = false;
             }
             catch (Exception ex)
             {

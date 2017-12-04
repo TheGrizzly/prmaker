@@ -39,6 +39,9 @@
             this.lblNoPlayerText = new System.Windows.Forms.Label();
             this.lblNumMatches = new System.Windows.Forms.Label();
             this.lblMatchesText = new System.Windows.Forms.Label();
+            this.lblKText = new System.Windows.Forms.Label();
+            this.lblKvalue = new System.Windows.Forms.Label();
+            this.btnElimT = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEditTourney
@@ -49,6 +52,7 @@
             this.btnEditTourney.TabIndex = 22;
             this.btnEditTourney.Text = "Editar Torneo";
             this.btnEditTourney.UseVisualStyleBackColor = true;
+            this.btnEditTourney.Click += new System.EventHandler(this.btnEditTourney_Click);
             // 
             // btnBuscarMatch
             // 
@@ -58,6 +62,7 @@
             this.btnBuscarMatch.TabIndex = 21;
             this.btnBuscarMatch.Text = "Buscar Match";
             this.btnBuscarMatch.UseVisualStyleBackColor = true;
+            this.btnBuscarMatch.Click += new System.EventHandler(this.btnBuscarMatch_Click);
             // 
             // btnNewSet
             // 
@@ -67,6 +72,7 @@
             this.btnNewSet.TabIndex = 20;
             this.btnNewSet.Text = "Nuevo Match";
             this.btnNewSet.UseVisualStyleBackColor = true;
+            this.btnNewSet.Click += new System.EventHandler(this.btnNewSet_Click);
             // 
             // btnSalir
             // 
@@ -92,7 +98,7 @@
             // 
             this.lblDateTourney.AutoSize = true;
             this.lblDateTourney.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateTourney.Location = new System.Drawing.Point(258, 119);
+            this.lblDateTourney.Location = new System.Drawing.Point(229, 98);
             this.lblDateTourney.Name = "lblDateTourney";
             this.lblDateTourney.Size = new System.Drawing.Size(16, 16);
             this.lblDateTourney.TabIndex = 30;
@@ -101,7 +107,7 @@
             // lblDateText
             // 
             this.lblDateText.AutoSize = true;
-            this.lblDateText.Location = new System.Drawing.Point(173, 121);
+            this.lblDateText.Location = new System.Drawing.Point(144, 100);
             this.lblDateText.Name = "lblDateText";
             this.lblDateText.Size = new System.Drawing.Size(40, 13);
             this.lblDateText.TabIndex = 29;
@@ -111,7 +117,7 @@
             // 
             this.lblNumPlayers.AutoSize = true;
             this.lblNumPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumPlayers.Location = new System.Drawing.Point(258, 69);
+            this.lblNumPlayers.Location = new System.Drawing.Point(229, 48);
             this.lblNumPlayers.Name = "lblNumPlayers";
             this.lblNumPlayers.Size = new System.Drawing.Size(41, 16);
             this.lblNumPlayers.TabIndex = 28;
@@ -120,7 +126,7 @@
             // lblNoPlayerText
             // 
             this.lblNoPlayerText.AutoSize = true;
-            this.lblNoPlayerText.Location = new System.Drawing.Point(173, 71);
+            this.lblNoPlayerText.Location = new System.Drawing.Point(144, 50);
             this.lblNoPlayerText.Name = "lblNoPlayerText";
             this.lblNoPlayerText.Size = new System.Drawing.Size(79, 13);
             this.lblNoPlayerText.TabIndex = 27;
@@ -130,7 +136,7 @@
             // 
             this.lblNumMatches.AutoSize = true;
             this.lblNumMatches.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumMatches.Location = new System.Drawing.Point(258, 91);
+            this.lblNumMatches.Location = new System.Drawing.Point(229, 70);
             this.lblNumMatches.Name = "lblNumMatches";
             this.lblNumMatches.Size = new System.Drawing.Size(75, 16);
             this.lblNumMatches.TabIndex = 26;
@@ -139,17 +145,49 @@
             // lblMatchesText
             // 
             this.lblMatchesText.AutoSize = true;
-            this.lblMatchesText.Location = new System.Drawing.Point(173, 97);
+            this.lblMatchesText.Location = new System.Drawing.Point(144, 76);
             this.lblMatchesText.Name = "lblMatchesText";
             this.lblMatchesText.Size = new System.Drawing.Size(71, 13);
             this.lblMatchesText.TabIndex = 25;
             this.lblMatchesText.Text = "No. Matches:";
+            // 
+            // lblKText
+            // 
+            this.lblKText.AutoSize = true;
+            this.lblKText.Location = new System.Drawing.Point(144, 122);
+            this.lblKText.Name = "lblKText";
+            this.lblKText.Size = new System.Drawing.Size(43, 13);
+            this.lblKText.TabIndex = 31;
+            this.lblKText.Text = "Kvalue:";
+            // 
+            // lblKvalue
+            // 
+            this.lblKvalue.AutoSize = true;
+            this.lblKvalue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKvalue.Location = new System.Drawing.Point(229, 120);
+            this.lblKvalue.Name = "lblKvalue";
+            this.lblKvalue.Size = new System.Drawing.Size(16, 16);
+            this.lblKvalue.TabIndex = 32;
+            this.lblKvalue.Text = "0";
+            // 
+            // btnElimT
+            // 
+            this.btnElimT.Location = new System.Drawing.Point(12, 147);
+            this.btnElimT.Name = "btnElimT";
+            this.btnElimT.Size = new System.Drawing.Size(95, 22);
+            this.btnElimT.TabIndex = 33;
+            this.btnElimT.Text = "Eliminar Torneo";
+            this.btnElimT.UseVisualStyleBackColor = true;
+            this.btnElimT.Click += new System.EventHandler(this.btnElimT_Click);
             // 
             // FrmTournament
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(401, 207);
+            this.Controls.Add(this.btnElimT);
+            this.Controls.Add(this.lblKvalue);
+            this.Controls.Add(this.lblKText);
             this.Controls.Add(this.lblDateTourney);
             this.Controls.Add(this.lblDateText);
             this.Controls.Add(this.lblNumPlayers);
@@ -182,5 +220,8 @@
         private System.Windows.Forms.Label lblNoPlayerText;
         private System.Windows.Forms.Label lblNumMatches;
         private System.Windows.Forms.Label lblMatchesText;
+        private System.Windows.Forms.Label lblKText;
+        private System.Windows.Forms.Label lblKvalue;
+        private System.Windows.Forms.Button btnElimT;
     }
 }

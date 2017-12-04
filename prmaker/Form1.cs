@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 
 namespace prmaker
@@ -17,6 +18,8 @@ namespace prmaker
     public partial class FrmMenu : Form
     {
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
+        List<string> RankingNames = new List<string>();
 
         //constructor
         public FrmMenu()
@@ -24,10 +27,12 @@ namespace prmaker
             InitializeComponent();
         }
 
-        private void FrmMenu_Load(object sender, EventArgs e)
+
+        public void getRankings()
         {
-            // se hace la conneccion a la base de datos
-            
+            cboRankngs.Items.Clear();
+            RankingNames.Clear();
+
             string query = "CALL ShowRankings;";
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
@@ -46,14 +51,14 @@ namespace prmaker
                 {
                     while (reader.Read())
                     {
-                        string[] rankings = { reader.GetString(0) };
+                        RankingNames.Add(reader.GetString(0));
                         cboRankngs.Items.Add(reader.GetString(0));
                     }
                 }
                 // se cierra la conexion con la base de datos
                 databaseConnection.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -67,6 +72,13 @@ namespace prmaker
             }
             else
                 cboRankngs.Enabled = true;
+        }
+
+        private void FrmMenu_Load(object sender, EventArgs e)
+        {
+            // se hace la conneccion a la base de datos
+            getRankings();
+            
         }
 
         private void btnNewRank_Click(object sender, EventArgs e)
@@ -97,6 +109,9 @@ namespace prmaker
             }else if(RankingName.Length >30)
             {
                 MessageBox.Show("nombre no valido, mas corto");
+            }else if (!regexItem.IsMatch(RankingName))
+            {
+                MessageBox.Show("Favor de solo ingresar numeros y letras");
             }
             else
             {
@@ -116,7 +131,7 @@ namespace prmaker
 
                     databaseConnection.Close();
 
-                    Form ranking = new FrmRanking(RankingName);
+                    Form ranking = new FrmRanking(RankingName, RankingNames);
                     ranking.Text = RankingName;
 
                     this.Hide();
@@ -124,6 +139,8 @@ namespace prmaker
                     ranking.ShowDialog();
 
                     this.Show();
+                    getRankings();
+                    btnLoadRank.Enabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -143,7 +160,7 @@ namespace prmaker
         private void btnLoadRank_Click(object sender, EventArgs e)
         {
             //cambio el nombre de la ventana por el valor seleccionado en CboRankngs y muestro FrmRankings
-            Form ranking = new FrmRanking(cboRankngs.SelectedItem.ToString());
+            Form ranking = new FrmRanking(cboRankngs.SelectedItem.ToString(),RankingNames);
             ranking.Text = cboRankngs.SelectedItem.ToString();
 
             this.Hide();
@@ -151,6 +168,8 @@ namespace prmaker
             ranking.ShowDialog();
 
             this.Show();
+            getRankings();
+            btnLoadRank.Enabled = false;
         }
     }
 }

@@ -19,9 +19,18 @@ namespace prmaker
         int idPlayerSelected;
         int loses = 0;
         int wins = 0;
+        List<int> idPlayers = new List<int>();
+        List<string> PlayerNames = new List<string>();
+        List<string> TournamentNames = new List<string>();
+        List<int> TournamentIds = new List<int>();
+
+
         List<string> Nplayer1 = new List<string>();
         List<string> Nplayer2 = new List<string>();
         List<string> Ntourney = new List<string>();
+        List<int> idPlayer1 = new List<int>();
+        List<int> idPlayer2 = new List<int>();
+        List<int> idTourneys = new List<int>();
         List<int> ScoreP1 = new List<int>();
         List<int> ScoreP2 = new List<int>();
         List<int> rplayer1 = new List<int>();
@@ -86,7 +95,7 @@ namespace prmaker
 
                 else
                 {
-                    string query3 = "CALL PlyaerStat3(" + idPlayerSelected + ");";
+                    string query3 = "CALL PlayerStat3(" + idPlayerSelected + ");";
                     PlayerStat2.CommandText = query3;
 
                     databaseConnection.Open();
@@ -98,20 +107,68 @@ namespace prmaker
                     {
                         while (reader.Read())
                         {
-                            Nplayer1.Add(reader.GetString(0));
-                            Nplayer2.Add(reader.GetString(1));
-                            Ntourney.Add(reader.GetString(2));
+                            idPlayer1.Add(reader.GetInt32(0));
+                            idPlayer2.Add(reader.GetInt32(1));
+                            idTourneys.Add(reader.GetInt32(2));
                             ScoreP1.Add(reader.GetInt32(3));
                             ScoreP2.Add(reader.GetInt32(4));
                             rplayer1.Add(reader.GetInt32(5));
                             rplayer2.Add(reader.GetInt32(6));
-                            sets.Add(reader.GetString(0)+"("+reader.GetInt32(5).ToString()+") - "+ reader.GetString(1) + "(" + reader.GetInt32(6).ToString() + ")  "+reader.GetString(2)+"  "+reader.GetInt32(3).ToString()+"-"+reader.GetInt32(4).ToString());
+
                         }
                     }
 
                     databaseConnection.Close();
 
-                    for(int i = 0; i < sets.Count; i++)
+                    string query6 = "CALL GetPlayerAndId("+idRankingSelected+")";
+                    PlayerStat2.CommandText = query6;
+                    databaseConnection.Open();
+                    reader = PlayerStat2.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            PlayerNames.Add(reader.GetString(0));
+                            idPlayers.Add(reader.GetInt32(1));
+                        }
+                    }
+
+                    databaseConnection.Close();
+
+                    string query7 = "CALL GetTournamentAndId(" + idRankingSelected + ")";
+                    PlayerStat2.CommandText = query7;
+                    databaseConnection.Open();
+                    reader = PlayerStat2.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            TournamentNames.Add(reader.GetString(0));
+                            TournamentIds.Add(reader.GetInt32(1));
+                        }
+                    }
+
+                    databaseConnection.Close();
+
+                    for(int i = 0; i < idPlayer1.Count; i++)
+                    {
+                        int indexP1 = idPlayers.IndexOf(idPlayer1[i]);
+                        int indexP2 = idPlayers.IndexOf(idPlayer2[i]);
+                        int indexT = TournamentIds.IndexOf(idTourneys[i]);
+
+                        Nplayer1.Add(PlayerNames[indexP1]);
+                        Nplayer2.Add(PlayerNames[indexP2]);
+                        Ntourney.Add(TournamentNames[indexT]);
+                    }
+
+                    for(int i =0; i <Nplayer1.Count; i++)
+                    {
+                        sets.Add(Nplayer1[i] + " (" + rplayer1[i] + ") vs (" + rplayer2[i] + ") " + Nplayer2[i] + " - " + Ntourney[i] + " - " + ScoreP1[i] + "-" + ScoreP2[i]);
+                    }
+
+                    for (int i = 0; i < sets.Count; i++)
                     {
                         lbSetScore.Items.Add(sets[i]);
                     }
@@ -142,10 +199,12 @@ namespace prmaker
                                 {
                                     winsSet.Add(1);
                                     wins++;
+                                    lostSet.Add(0);
                                 }else if (ScoreP2[i] > ScoreP1[i])
                                 {
                                     lostSet.Add(1);
                                     loses++;
+                                    winsSet.Add(0);
                                 }
                                     
                             }
@@ -172,11 +231,13 @@ namespace prmaker
                                 {
                                     winsSet.Add(1);
                                     wins++;
+                                    lostSet.Add(0);
                                 }
                                 else if (ScoreP2[i] < ScoreP1[i])
                                 {
                                     lostSet.Add(1);
                                     loses++;
+                                    winsSet.Add(0);
                                 }
 
                             }

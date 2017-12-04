@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 
 namespace prmaker
@@ -20,6 +21,7 @@ namespace prmaker
         int idRankingSelected;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
         List<string> AllPlayerNames = new List<string>();
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
 
         //constructor y asigno el idranking a la variable global
@@ -32,6 +34,7 @@ namespace prmaker
         private void GetAllPlayers()
         {
             dgvPlayers.Rows.Clear();
+            AllPlayerNames.Clear();
 
             string query = "CALL AllPlayers(" + idRankingSelected + ")";
 
@@ -58,6 +61,7 @@ namespace prmaker
                         else
                         {
                             DataGridViewRow row = (DataGridViewRow)dgvPlayers.Rows[0].Clone();
+                            AllPlayerNames.Add(reader.GetString(0));
                             row.Cells[0].Value = reader.GetString(0);
                             row.Cells[1].Value = reader.GetInt32(1).ToString();
                             row.Cells[2].Value = reader.GetInt32(2).ToString();
@@ -92,41 +96,56 @@ namespace prmaker
 
             string SearchedPlayer  = Interaction.InputBox("Ingrese el nombre del jugador buscado", "Buscar Jugador", "Buscar Jugador");
             dgvPlayers.Rows.Clear();
-
-            string query = "CALL SearchPlayerByName(" + idRankingSelected + ", '"+SearchedPlayer+"')";
-
-            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-            commandDatabase.CommandTimeout = 60;
-            MySqlDataReader reader;
-
-            try
+            AllPlayerNames.Clear();
+            if (SearchedPlayer == "")
             {
-                // se hace una consulta con todos los jugadores y los meto al datagridview
-                databaseConnection.Open();
-
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        DataGridViewRow row = (DataGridViewRow)dgvPlayers.Rows[0].Clone();
-                        AllPlayerNames.Add(reader.GetString(0));
-                        row.Cells[0].Value = reader.GetString(0);
-                        row.Cells[1].Value = reader.GetInt32(1).ToString();
-                        row.Cells[2].Value = reader.GetInt32(2).ToString();
-                        dgvPlayers.Rows.Add(row);
-                    }
-                }
-
-
-                // se cierra la conexion con la base de datos
-                databaseConnection.Close();
+                GetAllPlayers();
+            }else if (SearchedPlayer.Length > 30)
+            {
+                MessageBox.Show("Texto demaciado grande");
+                GetAllPlayers();
             }
-            catch (Exception ex)
+            else if (regexItem.IsMatch(SearchedPlayer)) {
+                string query = "CALL SearchPlayerByName(" + idRankingSelected + ", '" + SearchedPlayer + "')";
+
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+                commandDatabase.CommandTimeout = 60;
+                MySqlDataReader reader;
+
+                try
+                {
+                    // se hace una consulta con todos los jugadores y los meto al datagridview
+                    databaseConnection.Open();
+
+                    reader = commandDatabase.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dgvPlayers.Rows[0].Clone();
+                            AllPlayerNames.Add(reader.GetString(0));
+                            row.Cells[0].Value = reader.GetString(0);
+                            row.Cells[1].Value = reader.GetInt32(1).ToString();
+                            row.Cells[2].Value = reader.GetInt32(2).ToString();
+                            dgvPlayers.Rows.Add(row);
+                        }
+                    }
+
+
+                    // se cierra la conexion con la base de datos
+                    databaseConnection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Solo numeros y letras");
+                GetAllPlayers();
             }
         }
 
@@ -145,6 +164,9 @@ namespace prmaker
 
         private void btnNewPlayer_Click(object sender, EventArgs e)
         {
+            btnBuscar.Enabled = true;
+            btnStats.Enabled = true;
+            btnEliminatePlayer.Enabled = true;
             FrmAddPlayer frmAdd = new FrmAddPlayer(idRankingSelected);
             frmAdd.ShowDialog();
             GetAllPlayers();
@@ -198,11 +220,7 @@ namespace prmaker
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
-
-            
-
-            
+            } 
         }
     }
 }

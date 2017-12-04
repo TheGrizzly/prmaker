@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace prmaker
 {
@@ -21,6 +22,7 @@ namespace prmaker
 
         //variables globales
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
         private void getChars()
         {
@@ -78,8 +80,10 @@ namespace prmaker
                     if (NuevoNombre == cboChars.SelectedItem.ToString())
                         repetido = true;
                 }
-
-                if (repetido){
+                if (!regexItem.IsMatch(NuevoNombre))
+                {
+                    MessageBox.Show("Solo letras y Numeros");
+                }else if (repetido){
                     MessageBox.Show("ya existe un personaje con ese nombre");
                 }else{
                     string query = "CALL UpdateChar('"+NuevoNombre+"','"+viejoNombre+"');";
@@ -100,6 +104,8 @@ namespace prmaker
 
                         databaseConnection.Close();
                         getChars();
+                        btnEditar.Enabled = false;
+                        btnElim.Enabled = false;
                     }
                     catch (Exception ex)
                     {
@@ -133,7 +139,10 @@ namespace prmaker
                     repetido = true;
             }
 
-            if (repetido)
+            if (NewChar == "")
+            {
+                MessageBox.Show("Ingrese un valor");
+            }  else if (repetido)
             {
                 MessageBox.Show("Elemento Repetido");
             }
@@ -150,7 +159,7 @@ namespace prmaker
                     databaseConnection.Open();
                     MySqlDataReader myReader = commandDatabase.ExecuteReader();
 
-                    MessageBox.Show("Jugador añadido correctamente");
+                    MessageBox.Show("Personaje añadido correctamente");
 
                     databaseConnection.Close();
 
@@ -204,6 +213,17 @@ namespace prmaker
             else if(dialogResult == DialogResult.No)
             {
                 MessageBox.Show("Operacion cancelada");
+            }
+        }
+
+        private void txtChar_TextChanged(object sender, EventArgs e)
+        {
+            if (!regexItem.IsMatch(txtChar.Text))
+            {
+                btnNuevo.Enabled = false;
+            }else
+            {
+                btnNuevo.Enabled = true;
             }
         }
     }

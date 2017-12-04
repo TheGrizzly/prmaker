@@ -67,7 +67,7 @@ namespace prmaker
                         bool firstL = true;
                         while (reader.Read())
                         {
-                            if (reader.GetString(0) == pName[i])
+                            if (reader.GetInt32(0) == PidPlayer[i])
                             {
                                 if (reader.GetInt32(3) > reader.GetInt32(4))
                                 {
@@ -92,7 +92,7 @@ namespace prmaker
                                         pLoses[i]++;
                                 }
                             }
-                            else if (reader.GetString(1) == pName[i])
+                            else if (reader.GetInt32(1) == PidPlayer[i])
                             {
                                 if (reader.GetInt32(3) < reader.GetInt32(4))
                                 {
@@ -116,7 +116,6 @@ namespace prmaker
                                         pLoses[i]++;
                                 }
                             }
-                            databaseConnection.Close();
                         }
                         if (firstW)
                             pWins.Add(0);
@@ -126,13 +125,13 @@ namespace prmaker
                     }
                     else
                     {
-                        databaseConnection.Close();
                         pWins.Add(0);
                         pLoses.Add(0);
                     }
-                        
 
+                    databaseConnection.Close();
                 }
+                
 
                 for(int i = 0; i<pName.Count; i++)
                 {
@@ -193,6 +192,11 @@ namespace prmaker
         {
             lblTitle.Text += SelectedRanking;
             GetPR();
+        }
+
+        private void dgvPowerRanking_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

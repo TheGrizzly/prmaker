@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace prmaker
 {
@@ -21,21 +22,21 @@ namespace prmaker
         string SelectedRanking;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
         int idRanking;
+        List<string> RankingNames = new List<string>();
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
         // constructor
-        public FrmRanking(string ra)
+        public FrmRanking(string ra, List<string> RNS)
         {
             InitializeComponent();
             SelectedRanking = ra;
-           
+            RankingNames = RNS;
         }
 
-        private void FrmRanking_Load(object sender, EventArgs e)
+        public void getRankingData()
         {
             //creo el query y creo la conexion con la base de datos
-            string query = "CALL SelectIdRanking('"+SelectedRanking+"');";
-            
-
+            string query = "CALL SelectIdRanking('" + SelectedRanking + "');";
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
@@ -51,7 +52,7 @@ namespace prmaker
                 //veo si tiene valores la lectura
                 if (reader.HasRows)
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                         idRanking = reader.GetInt32(0);
                 }
                 else
@@ -72,7 +73,7 @@ namespace prmaker
                 if (reader.HasRows)
                 {
                     //cambio el texto de lblNum por el valor que me regresa
-                    while(reader.Read())
+                    while (reader.Read())
                         lblNum.Text = reader.GetInt32(0).ToString();
                 }
                 else
@@ -85,6 +86,11 @@ namespace prmaker
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void FrmRanking_Load(object sender, EventArgs e)
+        {
+            getRankingData();
 
         }
 
@@ -123,26 +129,54 @@ namespace prmaker
 
         private void cambiarNombreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //creo el query y creo la conexion con la base de datos
-            string query = "CALL EditRanking(" + idRanking + ");";
-
-            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-            commandDatabase.CommandTimeout = 60;
-            MySqlDataReader reader;
-
-            try
+            string NewName = Interaction.InputBox("Ingres el nuevo nombre del ranking", "editar ranking",SelectedRanking);
+            bool repetido = false;
+            
+            for(int i = 0; i < RankingNames.Count; i++)
             {
-                //hago el update en el ranking
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                //cierro la connexion
-                databaseConnection.Close();
+                if (NewName == RankingNames[i] && NewName != SelectedRanking)
+                    repetido = true;
             }
-            catch (Exception ex)
+
+            if(NewName == "")
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ingresa un valor");
+            }else if(NewName == SelectedRanking)
+            {
+                MessageBox.Show("Es el mismo valor, favor de ingresar un nombre nuevo");
+            }else if(NewName.Length > 30)
+            {
+                MessageBox.Show("Tamaño no valido");
+            }else if (repetido)
+            {
+                MessageBox.Show("Ya existe ese valor, ingresa otro");
+            }else if (!regexItem.IsMatch(NewName))
+            {
+                MessageBox.Show("Caracteres no validos, solo numeros y letras");
+            }
+            else
+            {
+                //creo el query y creo la conexion con la base de datos
+                string query = "CALL EditRanking('" + NewName + "'," + idRanking + ");";
+
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+                commandDatabase.CommandTimeout = 60;
+                MySqlDataReader reader;
+
+                try
+                {
+                    //hago el update en el ranking
+                    databaseConnection.Open();
+                    reader = commandDatabase.ExecuteReader();
+
+                    //cierro la connexion
+                    databaseConnection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -160,6 +194,7 @@ namespace prmaker
             frmJugadores.ShowDialog();
 
             this.Show();
+            getRankingData();
         }
 
         private void btnPersonajes_Click(object sender, EventArgs e)
@@ -168,6 +203,7 @@ namespace prmaker
             FrmCharacters frmChars = new FrmCharacters();
             frmChars.ShowDialog();
             this.Show();
+            getRankingData();
         }
 
         private void btnTorneo_Click(object sender, EventArgs e)
@@ -176,6 +212,7 @@ namespace prmaker
             FrmTourneys frmTour = new FrmTourneys(idRanking);
             frmTour.ShowDialog();
             this.Show();
+            getRankingData();
         }
 
         private void btnPr_Click(object sender, EventArgs e)
@@ -184,6 +221,7 @@ namespace prmaker
             FrmPowerRanking frmPr = new FrmPowerRanking(idRanking,SelectedRanking);
             frmPr.ShowDialog();
             this.Show();
+            getRankingData();
         }
     }
 }

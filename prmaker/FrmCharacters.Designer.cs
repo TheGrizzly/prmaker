@@ -106,6 +106,7 @@
             this.txtChar.Name = "txtChar";
             this.txtChar.Size = new System.Drawing.Size(153, 20);
             this.txtChar.TabIndex = 25;
+            this.txtChar.TextChanged += new System.EventHandler(this.txtChar_TextChanged);
             // 
             // FrmCharacters
             // 

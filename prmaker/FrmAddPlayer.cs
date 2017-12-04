@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace prmaker
 {
@@ -19,6 +20,7 @@ namespace prmaker
         int idRankingSelected;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
         List<string> AllPlayerNames = new List<string>();
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
         public FrmAddPlayer(int idr)
         {
@@ -124,7 +126,7 @@ namespace prmaker
 
                 databaseConnection.Close();
 
-                string queryChar = "CALL PlayerMain('" + txtTag.Text + "', '" + cboChars.SelectedItem.ToString() + "');";
+                string queryChar = "CALL PlayerMain('" + txtTag.Text + "', '" + cboChars.SelectedItem.ToString() + "', "+idRankingSelected+");";
 
                 MySqlCommand CallDetmain = new MySqlCommand(queryChar, databaseConnection);
                 CallDetmain.CommandTimeout = 60;
@@ -149,17 +151,25 @@ namespace prmaker
 
         private void txtTag_TextChanged(object sender, EventArgs e)
         {
-            if (AllPlayerNames.Count == 0){
+            if (!regexItem.IsMatch(txtTag.Text))
+            {
+                btnNew.Enabled = false;
+            }else if (txtTag.Text == "")
+                btnNew.Enabled = false;
+            else if (AllPlayerNames.Count == 0 && cboChars.SelectedIndex >=0)
+            {
                 btnNew.Enabled = true;
-            }else{
+            }
+            else
+            {
                 for (int i = 0; i < AllPlayerNames.Count; i++)
                 {
-                    if (txtTag.Text == AllPlayerNames[i])
+                    if ((txtTag.Text == AllPlayerNames[i] || txtTag.Text == "") && cboChars.SelectedIndex>=0)
                     {
                         btnNew.Enabled = false;
                         break;
                     }
-                    else
+                    else if(cboChars.SelectedIndex>=0)
                     {
                         btnNew.Enabled = true;
                     }

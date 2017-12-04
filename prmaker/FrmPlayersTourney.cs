@@ -16,7 +16,7 @@ namespace prmaker
     {
         int idRanking;
         int idTournament;
-        string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
+        string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;Convert Zero Datetime=true;";
         List<string> playerNames = new List<string>();
 
         public FrmPlayersTourney(int idt, int idr)
@@ -64,33 +64,44 @@ namespace prmaker
 
         private void btnSelectPlayers_Click(object sender, EventArgs e)
         {
-            int index;
             string player;
+            int nup =0;
             try
             {
-                foreach (int i in lbPlayers.SelectedIndices)
+                foreach(int i in lbPlayers.SelectedIndices)
                 {
-                    index = lbPlayers.SelectedIndex;
-                    player = lbPlayers.Items[index].ToString();
-                    string query = "CALL PlayerTourneyByName(" + idTournament + ", '" + player + "');";
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                    MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-                    commandDatabase.CommandTimeout = 60;
-
-                    try
-                    {
-                        databaseConnection.Open();
-                        MySqlDataReader myReader = commandDatabase.ExecuteReader();
-
-                        databaseConnection.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    nup++;
                 }
-                MessageBox.Show("Jugadores Agregados correctamente");
-                this.Close();
+                if (nup >=2)
+                {
+                    foreach (int i in lbPlayers.SelectedIndices)
+                    {
+                        player = lbPlayers.Items[i].ToString();
+                        string query = "CALL PlayerTourneyByName(" + idTournament + ", '" + player + "');";
+                        MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                        MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+                        commandDatabase.CommandTimeout = 60;
+
+                        try
+                        {
+                            databaseConnection.Open();
+                            MySqlDataReader myReader = commandDatabase.ExecuteReader();
+
+                            databaseConnection.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    MessageBox.Show("Jugadores Agregados correctamente");
+                    this.Close();
+                }else
+                {
+                    MessageBox.Show("Porfavor seleccione un minimo de 2 jugadores");
+                }
+
+                
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);

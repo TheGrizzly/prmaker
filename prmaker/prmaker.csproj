@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eloRecalc.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,11 +76,23 @@
     <Compile Include="FrmEditPlayer.Designer.cs">
       <DependentUpon>FrmEditPlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmEditTourney.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditTourney.Designer.cs">
+      <DependentUpon>FrmEditTourney.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmElimPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmElimPlayer.Designer.cs">
       <DependentUpon>FrmElimPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNewSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNewSet.Designer.cs">
+      <DependentUpon>FrmNewSet.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmNewTourney.cs">
       <SubType>Form</SubType>
@@ -117,6 +130,18 @@
     <Compile Include="FrmRanking.Designer.cs">
       <DependentUpon>FrmRanking.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSearchSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSearchSet.Designer.cs">
+      <DependentUpon>FrmSearchSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSet.Designer.cs">
+      <DependentUpon>FrmSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTournament.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,8 +168,14 @@
     <EmbeddedResource Include="FrmEditPlayer.resx">
       <DependentUpon>FrmEditPlayer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditTourney.resx">
+      <DependentUpon>FrmEditTourney.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmElimPlayer.resx">
       <DependentUpon>FrmElimPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNewSet.resx">
+      <DependentUpon>FrmNewSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmNewTourney.resx">
       <DependentUpon>FrmNewTourney.cs</DependentUpon>
@@ -163,6 +194,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRanking.resx">
       <DependentUpon>FrmRanking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSearchSet.resx">
+      <DependentUpon>FrmSearchSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSet.resx">
+      <DependentUpon>FrmSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTournament.resx">
       <DependentUpon>FrmTournament.cs</DependentUpon>

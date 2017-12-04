@@ -30,3 +30,11 @@ C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.csproj.Gener
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmCharacters.resources
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmEditPlayer.resources
 C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmPowerRanking.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmNewSet.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmNewTourney.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmPlayersTourney.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmTournament.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmTourneys.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmEditTourney.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmSearchSet.resources
+C:\Users\pc\Desktop\EloCalculator\prmaker\prmaker\obj\Debug\prmaker.FrmSet.resources

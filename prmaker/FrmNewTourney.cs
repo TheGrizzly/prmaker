@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace prmaker
 {
@@ -18,6 +19,7 @@ namespace prmaker
         int idRanking;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
         List<string> tourneyNames = new List<string>();
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
         public FrmNewTourney(int idr, List<string> tn)
         {
@@ -33,7 +35,9 @@ namespace prmaker
 
         private void txtTag_TextChanged(object sender, EventArgs e)
         {
-            if (tourneyNames.Count == 0)
+            if (!regexItem.IsMatch(txtTName.Text) || txtTName.Text=="") {
+                btnNew.Enabled = false;
+            }else if (tourneyNames.Count == 0)
             {
                 btnNew.Enabled = true;
             }
@@ -41,7 +45,7 @@ namespace prmaker
             {
                 for (int i = 0; i < tourneyNames.Count; i++)
                 {
-                    if (txtTName.Text == tourneyNames[i])
+                    if (txtTName.Text == tourneyNames[i] || txtTName.Text == "")
                     {
                         btnNew.Enabled = false;
                         break;
@@ -56,7 +60,10 @@ namespace prmaker
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            string query = "CALL NewTourney('" + txtTName.Text + "', " + nudKvalue + ", " + dtpTourneyDate.Value + ", " + idRanking + ");";
+            DateTime Date = dtpTourneyDate.Value;
+            string TourDate = Date.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string query = "CALL NewTourney('" + txtTName.Text + "', " + nudKvalue.Value + ", '" +  TourDate + "', " + idRanking + ");";
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
@@ -71,6 +78,28 @@ namespace prmaker
 
                 MessageBox.Show("Torneo creado correctamente");
 
+                int idt =-1;
+                string query2 = "CALL IdTourney(" + idRanking + ", '" + txtTName.Text + "');";
+
+                commandDatabase.CommandText = query2;
+                databaseConnection.Open();
+
+                myReader = commandDatabase.ExecuteReader();
+
+                if (myReader.HasRows)
+                {
+                    if (myReader.Read())
+                    {
+                        idt = myReader.GetInt32(0);
+                    }
+                }
+                else
+                    idt = -1;
+
+                databaseConnection.Close();
+
+                FrmPlayersTourney frmPt = new FrmPlayersTourney(idt, idRanking);
+                frmPt.ShowDialog();
                 this.Close();
             }
             catch (Exception ex)

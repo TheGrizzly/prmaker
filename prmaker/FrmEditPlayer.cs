@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace prmaker
 {
@@ -34,6 +35,7 @@ namespace prmaker
         string playerName, characterName;
         string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=prmaker;";
         List<string> AllPlayerNames = new List<string>();
+        Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
 
 
         private void getChars()
@@ -108,7 +110,11 @@ namespace prmaker
 
         private void txtTag_TextChanged(object sender, EventArgs e)
         {
-            if (AllPlayerNames.Count == 0)
+            if (!regexItem.IsMatch(txtTag.Text))
+            {
+                btnEdit.Enabled = false;
+            }
+            else if (AllPlayerNames.Count == 0)
             {
                 btnEdit.Enabled = true;
             }

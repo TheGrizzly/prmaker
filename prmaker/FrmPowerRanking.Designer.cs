@@ -30,7 +30,6 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.dgvPowerRanking = new System.Windows.Forms.DataGridView();
-            this.btnSalir = new System.Windows.Forms.Button();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Main = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +39,7 @@
             this.Loses = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSets = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPowerRanking)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,18 +68,9 @@
             this.Rating});
             this.dgvPowerRanking.Location = new System.Drawing.Point(13, 51);
             this.dgvPowerRanking.Name = "dgvPowerRanking";
-            this.dgvPowerRanking.Size = new System.Drawing.Size(674, 150);
+            this.dgvPowerRanking.Size = new System.Drawing.Size(674, 334);
             this.dgvPowerRanking.TabIndex = 3;
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Location = new System.Drawing.Point(592, 227);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(95, 22);
-            this.btnSalir.TabIndex = 12;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.dgvPowerRanking.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPowerRanking_CellContentClick);
             // 
             // No
             // 
@@ -153,11 +144,21 @@
             this.Rating.ReadOnly = true;
             this.Rating.Width = 63;
             // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(592, 408);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(95, 22);
+            this.btnSalir.TabIndex = 12;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // FrmPowerRanking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 261);
+            this.ClientSize = new System.Drawing.Size(699, 442);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.dgvPowerRanking);
             this.Controls.Add(this.lblTitle);
