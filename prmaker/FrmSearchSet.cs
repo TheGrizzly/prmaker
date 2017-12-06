@@ -142,6 +142,7 @@ namespace prmaker
             FrmSet FrmViewSet = new FrmSet(setIdSet[selectedset]);
             FrmViewSet.ShowDialog();
             this.Show();
+            GetMatches();
         }
 
         private void cboSets_SelectedIndexChanged(object sender, EventArgs e)

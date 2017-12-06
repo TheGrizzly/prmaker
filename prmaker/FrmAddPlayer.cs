@@ -178,5 +178,34 @@ namespace prmaker
 
             
         }
+
+        private void cboChars_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!regexItem.IsMatch(txtTag.Text))
+            {
+                btnNew.Enabled = false;
+            }
+            else if (txtTag.Text == "")
+                btnNew.Enabled = false;
+            else if (AllPlayerNames.Count == 0 && cboChars.SelectedIndex >= 0)
+            {
+                btnNew.Enabled = true;
+            }
+            else
+            {
+                for (int i = 0; i < AllPlayerNames.Count; i++)
+                {
+                    if ((txtTag.Text == AllPlayerNames[i] || txtTag.Text == "") && cboChars.SelectedIndex >= 0)
+                    {
+                        btnNew.Enabled = false;
+                        break;
+                    }
+                    else if (cboChars.SelectedIndex >= 0)
+                    {
+                        btnNew.Enabled = true;
+                    }
+                }
+            }
+        }
     }
 }

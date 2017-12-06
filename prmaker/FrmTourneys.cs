@@ -21,6 +21,8 @@ namespace prmaker
         List<int> idTourneys = new List<int>();
         List<string> playerNames = new List<string>();
         Regex regexItem = new Regex("^[a-zA-Z0-9 ]*$");
+        DateTime FirstT;
+        DateTime LastT;
 
         public FrmTourneys(int idr)
         {
@@ -50,6 +52,7 @@ namespace prmaker
 
                 if (reader.HasRows)
                 {
+                    int i = 0;
                     while (reader.Read())
                     {
                         if (reader.GetString(0) == "")
@@ -69,13 +72,26 @@ namespace prmaker
                             tourneyNames.Add(reader.GetString(1));
                             btnBuscar.Enabled = true;
                             btnVer.Enabled = true;
+                            if (i == 0)
+                            {
+                                FirstT = reader.GetDateTime(3);
+                                dtpFirstDate.Value = FirstT;
+                            }
+                            i++;
                         }
                     }
+                    int index = dgvTourneys.Rows.Count-2;
+                    string date = Convert.ToString( dgvTourneys.Rows[index].Cells[3].Value);
+                    LastT = Convert.ToDateTime(date);
+                    dtpLastDate.Value = LastT;
                 }
                 else
                 {
                     btnBuscar.Enabled = false;
                     btnVer.Enabled = false;
+                    btnFiltrar.Enabled = false;
+                    dtpFirstDate.Enabled = false;
+                    dtpLastDate.Enabled = false;
                 }
 
                 // se cierra la conexion con la base de datos
@@ -170,10 +186,6 @@ namespace prmaker
             }
         }
 
-        private void btnEliminateTourney_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnVer_Click(object sender, EventArgs e)
         {
@@ -195,6 +207,63 @@ namespace prmaker
                 FrmT.ShowDialog();
                 getTourneys();
             }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            if(dtpFirstDate.Value == FirstT && dtpLastDate.Value == LastT)
+            {
+                MessageBox.Show("Favor de cambiar las fechas para poder filtrar");
+            }
+            else
+            {
+                dgvTourneys.Rows.Clear();
+                string query = "CALL FilterTByDates('" + dtpFirstDate.Value.ToString("yyyy-MM-dd HH:mm:ss")+"', '"+ dtpLastDate.Value.ToString("yyyy-MM-dd HH:mm:ss")+"', "+idRanking+");";
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+                commandDatabase.CommandTimeout = 60;
+                MySqlDataReader reader;
+
+                try
+                {
+                    // se hace una consulta con todos los jugadores y los meto al datagridview
+                    databaseConnection.Open();
+
+                    reader = commandDatabase.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dgvTourneys.Rows[0].Clone();
+                            row.Cells[0].Value = reader.GetInt32(0);
+                            row.Cells[1].Value = reader.GetString(1);
+                            row.Cells[2].Value = reader.GetInt32(2);
+                            row.Cells[3].Value = reader.GetDateTime(3);
+                            row.Cells[4].Value = reader.GetInt32(4);
+                            dgvTourneys.Rows.Add(row);
+                            idTourneys.Add(reader.GetInt32(0));
+                            tourneyNames.Add(reader.GetString(1));
+                        }
+                    }
+                    // se cierra la conexion con la base de datos
+                    databaseConnection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void dtpFirstDate_ValueChanged(object sender, EventArgs e)
+        {
+            dtpLastDate.MinDate = dtpFirstDate.Value;
+        }
+
+        private void dtpLastDate_ValueChanged(object sender, EventArgs e)
+        {
+            dtpFirstDate.MaxDate = dtpLastDate.Value;
         }
     }
 }

@@ -39,6 +39,9 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnVer = new System.Windows.Forms.Button();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.dtpFirstDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpLastDate = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTourneys)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,11 +149,40 @@
             this.btnVer.UseVisualStyleBackColor = true;
             this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Location = new System.Drawing.Point(12, 231);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(95, 22);
+            this.btnFiltrar.TabIndex = 23;
+            this.btnFiltrar.Text = "Filtrar por Fecha";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // dtpFirstDate
+            // 
+            this.dtpFirstDate.Location = new System.Drawing.Point(12, 179);
+            this.dtpFirstDate.Name = "dtpFirstDate";
+            this.dtpFirstDate.Size = new System.Drawing.Size(112, 20);
+            this.dtpFirstDate.TabIndex = 25;
+            this.dtpFirstDate.ValueChanged += new System.EventHandler(this.dtpFirstDate_ValueChanged);
+            // 
+            // dtpLastDate
+            // 
+            this.dtpLastDate.Location = new System.Drawing.Point(12, 205);
+            this.dtpLastDate.Name = "dtpLastDate";
+            this.dtpLastDate.Size = new System.Drawing.Size(112, 20);
+            this.dtpLastDate.TabIndex = 26;
+            this.dtpLastDate.ValueChanged += new System.EventHandler(this.dtpLastDate_ValueChanged);
+            // 
             // FrmTourneys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(551, 266);
+            this.Controls.Add(this.dtpLastDate);
+            this.Controls.Add(this.dtpFirstDate);
+            this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dgvTourneys);
             this.Controls.Add(this.btnBuscar);
@@ -179,5 +211,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TourneyDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumOfPlayers;
         private System.Windows.Forms.Button btnVer;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.DateTimePicker dtpFirstDate;
+        private System.Windows.Forms.DateTimePicker dtpLastDate;
     }
 }

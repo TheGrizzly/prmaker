@@ -92,6 +92,7 @@
             this.cboChars.Name = "cboChars";
             this.cboChars.Size = new System.Drawing.Size(153, 21);
             this.cboChars.TabIndex = 14;
+            this.cboChars.SelectedIndexChanged += new System.EventHandler(this.cboChars_SelectedIndexChanged);
             // 
             // btnNew
             // 

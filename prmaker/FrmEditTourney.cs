@@ -124,7 +124,7 @@ namespace prmaker
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            string query = "CALL EditTourney(" + idTournament + ", '" + txtTName.Text + "', '" + dtpTourneyDate.Value + "');";
+            string query = "CALL EditTourney( '" + dtpTourneyDate.Value.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + txtTName.Text + "', " + idTournament + ");";
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);

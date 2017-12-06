@@ -27,6 +27,43 @@ namespace prmaker
             InitializeComponent();
         }
 
+        public void checkChar()
+        {
+            string query = "CALL CheckSinMain;";
+            bool found = false;
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            try
+            {
+                databaseConnection.Open();
+
+                reader = commandDatabase.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    found = true;       
+                }
+                // se cierra la conexion con la base de datos
+                databaseConnection.Close();
+
+                string queryInsert = "CALL NewChar('Sin Main');";
+                commandDatabase.CommandText = queryInsert;
+
+                databaseConnection.Open();
+                reader = commandDatabase.ExecuteReader();
+
+                databaseConnection.Close();
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
         public void getRankings()
         {

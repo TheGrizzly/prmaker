@@ -251,14 +251,17 @@ namespace prmaker
                     }
 
                     lblSetScore.Text = wins + "W / " + loses + "L";
-                    double winrate, loserate;
-                    winrate = wins / (wins + loses);
-                    loserate = loses / (wins + loses);
+                    decimal winrate, loserate;
+                    int totalgames = wins + loses;
+                    winrate = Convert.ToDecimal(wins) /Convert.ToDecimal(totalgames);
+                    loserate = Convert.ToDecimal(loses) / Convert.ToDecimal(totalgames);
 
                     winrate = Math.Round(winrate, 4);
                     loserate = Math.Round(loserate, 4);
                     winrate *= 100;
                     loserate *= 100;
+                    winrate = Math.Round(winrate, 2);
+                    loserate = Math.Round(loserate, 2);
 
                     lblWinRate.Text = winrate + "%";
                     lblLoseRate.Text = loserate + "%";

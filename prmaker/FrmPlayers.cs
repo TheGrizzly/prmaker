@@ -174,7 +174,7 @@ namespace prmaker
 
         private void btnStats_Click(object sender, EventArgs e)
         {
-            int idPlayerSelected = 0;
+            int currenrow = dgvPlayers.CurrentCell.RowIndex;
             string[] APN = AllPlayerNames.ToArray<string>();
             if (dgvPlayers.SelectedCells.Count > 1 || dgvPlayers.SelectedCells.Count == 0)
             {
@@ -187,39 +187,11 @@ namespace prmaker
             else
             {
                 string selectedPlayer = dgvPlayers.CurrentCell.Value.ToString();
+                int idPlayerSelected = Convert.ToInt32(dgvPlayers.Rows[currenrow].Cells[2].Value);
 
-                string query = "CALL GetIdPlayer('" + selectedPlayer + "');";
-
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-
-                try
-                {
-                    databaseConnection.Open();
-                    reader = commandDatabase.ExecuteReader();
-
-                    if (reader.HasRows)
-                    {
-                        if (reader.Read())
-                            idPlayerSelected = reader.GetInt32(0);
-
-                        FrmPlayerStat frmStats = new FrmPlayerStat(idRankingSelected, idPlayerSelected);
-                        frmStats.ShowDialog();
-                        GetAllPlayers();
-                    }
-                    else
-                    {
-                        MessageBox.Show("no hay resultado");
-                    }
-                    // se cierra la conexion con la base de datos
-                    databaseConnection.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                FrmPlayerStat frmStats = new FrmPlayerStat(idRankingSelected, idPlayerSelected);
+                frmStats.ShowDialog();
+                GetAllPlayers();
             } 
         }
     }

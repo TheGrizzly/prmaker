@@ -82,7 +82,7 @@ namespace prmaker
         {
             int index = cboPlayer1.SelectedIndex;
             lblRatingP1.Text = PlayerRatings[index].ToString();
-            lblMainText1.Text = PlayerMains[index];
+            lblMainP1.Text = PlayerMains[index];
             if(cboPlayer1.SelectedIndex != -1 && cboPlayer2.SelectedIndex !=-1 && (nudScoreP1.Value != 0 || nudScoreP2.Value != 0) && cboPlayer1.SelectedIndex!=cboPlayer2.SelectedIndex)
             {
                 btnAddMatch.Enabled = true;
@@ -97,7 +97,7 @@ namespace prmaker
         {
             int index = cboPlayer2.SelectedIndex;
             lblRatingP2.Text = PlayerRatings[index].ToString();
-            lblMainText2.Text = PlayerMains[index];
+            lblMainP2.Text = PlayerMains[index];
             if (cboPlayer1.SelectedIndex >= 0 && cboPlayer2.SelectedIndex >= 0 && (nudScoreP1.Value != 0 || nudScoreP2.Value != 0) && cboPlayer1.SelectedIndex != cboPlayer2.SelectedIndex)
             {
                 btnAddMatch.Enabled = true;

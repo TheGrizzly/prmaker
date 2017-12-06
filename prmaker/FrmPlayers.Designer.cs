@@ -111,7 +111,7 @@
             this.id_player});
             this.dgvPlayers.Location = new System.Drawing.Point(157, 50);
             this.dgvPlayers.Name = "dgvPlayers";
-            this.dgvPlayers.Size = new System.Drawing.Size(249, 150);
+            this.dgvPlayers.Size = new System.Drawing.Size(256, 150);
             this.dgvPlayers.TabIndex = 14;
             // 
             // Player

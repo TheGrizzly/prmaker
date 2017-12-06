@@ -143,12 +143,15 @@ namespace prmaker
                     }
                     else
                     {
-                        double WinR = pWins[i] / (pWins[i] + pLoses[i]);
-                        double LoseR = pLoses[i] / (pWins[i] + pLoses[i]);
+                        int totalgames = pWins[i] + pLoses[i];
+                        decimal WinR = Convert.ToDecimal(pWins[i]) / Convert.ToDecimal(totalgames);
+                        decimal LoseR = Convert.ToDecimal(pLoses[i]) / Convert.ToDecimal(totalgames);
                         WinR = Math.Round(WinR, 4);
                         LoseR = Math.Round(LoseR, 4);
                         WinR *= 100;
                         LoseR *= 100;
+                        WinR = Math.Round(WinR, 2);
+                        LoseR = Math.Round(LoseR, 2);
                         pWinRate.Add(WinR + "%");
                         pLoseRate.Add(LoseR + "%");
                     }
