@@ -49,13 +49,16 @@ namespace prmaker
                 // se cierra la conexion con la base de datos
                 databaseConnection.Close();
 
-                string queryInsert = "CALL NewChar('Sin Main');";
-                commandDatabase.CommandText = queryInsert;
+                if (!found)
+                {
+                    string queryInsert = "CALL CreateSinMain;";
+                    commandDatabase.CommandText = queryInsert;
 
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
+                    databaseConnection.Open();
+                    reader = commandDatabase.ExecuteReader();
 
-                databaseConnection.Close();
+                    databaseConnection.Close();
+                }
 
             }
             catch(Exception ex)
@@ -115,7 +118,7 @@ namespace prmaker
         {
             // se hace la conneccion a la base de datos
             getRankings();
-            
+            checkChar();
         }
 
         private void btnNewRank_Click(object sender, EventArgs e)

@@ -142,10 +142,13 @@ namespace prmaker
             if (NewChar == "")
             {
                 MessageBox.Show("Ingrese un valor");
-            }  else if (repetido)
+            }
+            else if (repetido)
             {
                 MessageBox.Show("Elemento Repetido");
             }
+            else if (NewChar == "Sin Main")
+                MessageBox.Show("Nombre Restrigido");
             else
             {
                 string query = "CALL NewChar('" + NewChar + "');";
